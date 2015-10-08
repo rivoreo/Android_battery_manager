@@ -21,10 +21,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import android.os.Handler;
-
-import java.lang.ref.WeakReference;
-import java.util.logging.LogRecord;
 
 import de.greenrobot.event.EventBus;
 
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // This method will be called when a MessageEvent is posted
-    public void onEvent(BatteryEvent event){
+    public void onEvent(BatteryEvent event) {
         int level = event.mBundle.getInt("Level", 0);
         int voltage = event.mBundle.getInt("Voltage", 0);
         view.setText("Level: "+level+"\n"+
@@ -84,9 +80,11 @@ public class MainActivity extends AppCompatActivity {
         //Create a Intent
         Intent MainIntent = new Intent(MainActivity.this, MainActivity.class);
         //Pending
-        PendingIntent MainPendingIntent = PendingIntent.getActivity(MainActivity.this, 0, MainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent MainPendingIntent = PendingIntent.getActivity(MainActivity.this, 0,
+                MainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         mBuilder.setContentIntent(MainPendingIntent);
-        NotificationManager mNotificationmanager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationManager mNotificationmanager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationmanager.notify(0, mBuilder.build());
     }
 

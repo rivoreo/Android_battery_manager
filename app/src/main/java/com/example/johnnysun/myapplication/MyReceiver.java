@@ -43,12 +43,5 @@ public class MyReceiver extends BroadcastReceiver {
 
         BatteryEvent mEvent = new BatteryEvent(bundle);
         EventBus.getDefault().post(mEvent);
-
-        //Message sendMessage;
-        //sendMessage.setData(bundle);
-        //sendMessage= mHandler.obtainMessage(1);
-
-
-
     }
 }
