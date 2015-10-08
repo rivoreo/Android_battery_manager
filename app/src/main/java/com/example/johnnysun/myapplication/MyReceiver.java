@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.v4.app.NotificationCompat;
 
 import de.greenrobot.event.EventBus;
@@ -40,7 +41,6 @@ public class MyReceiver extends BroadcastReceiver {
         Bundle bundle = new Bundle();
         bundle.putInt("Level", level);
         bundle.putInt("Voltage", voltage);
-
         BatteryEvent mEvent = new BatteryEvent(bundle);
         EventBus.getDefault().post(mEvent);
     }

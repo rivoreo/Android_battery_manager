@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     static private TextView view;
     private  NotificationCompat.Builder mBuilder;
+    private MyReceiver BatteryReceiver = new BroadcastReceiver();
 
     /*static public class IncomingHandler extends Handler {
         private final WeakReference<MainActivity> mActivity;
@@ -96,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         view = (TextView) findViewById(R.id.textview1);
-        //this.registerReceiver(BatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        this.registerReceiver(BatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

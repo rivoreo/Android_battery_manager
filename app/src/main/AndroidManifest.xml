@@ -8,9 +8,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-        <receiver android:name=".MyReceiver">
+        <receiver android:name="MyReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BATTERY_CHANGED" />
+                <action android:name="android.intent.action.BATTERY_LOW" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
         <activity
