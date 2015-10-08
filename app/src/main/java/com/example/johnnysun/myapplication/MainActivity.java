@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     static private TextView view;
     private  NotificationCompat.Builder mBuilder;
-    private MyReceiver BatteryReceiver = new BroadcastReceiver();
+    private MyReceiver BatteryReceiver = new MyReceiver();
 
     /*static public class IncomingHandler extends Handler {
         private final WeakReference<MainActivity> mActivity;
