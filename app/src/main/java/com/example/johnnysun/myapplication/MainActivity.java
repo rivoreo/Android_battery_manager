@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.Looper;
 import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
@@ -20,6 +23,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import de.greenrobot.event.EventBus;
@@ -28,8 +32,9 @@ import de.greenrobot.event.EventBus;
 public class MainActivity extends AppCompatActivity {
 
     static private TextView view;
-    private  NotificationCompat.Builder mBuilder;
-    private MyReceiver BatteryReceiver = new MyReceiver();
+    private NotificationCompat.Builder mBuilder;
+    //private MyReceiver BatteryReceiver = new MyReceiver();
+
 
     /*static public class IncomingHandler extends Handler {
         private final WeakReference<MainActivity> mActivity;
@@ -57,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+        Intent ServiceIndent = new Intent(MainActivity.this, LocalService.class);
+        startService(ServiceIndent);
         EventBus.getDefault().register(this);
     }
 
@@ -72,21 +79,6 @@ public class MainActivity extends AppCompatActivity {
         int voltage = event.mBundle.getInt("Voltage", 0);
         view.setText("Level: "+level+"\n"+
                             "Voltage: "+voltage+"\n");
-
-        mBuilder =
-                new NotificationCompat.Builder(MainActivity.this)
-                        .setSmallIcon(R.mipmap.ic_launcher)
-                        .setContentTitle("Battery Info")
-                        .setContentText(level+"% "+ voltage+"mV ");
-        //Create a Intent
-        Intent MainIntent = new Intent(MainActivity.this, MainActivity.class);
-        //Pending
-        PendingIntent MainPendingIntent = PendingIntent.getActivity(MainActivity.this, 0,
-                MainIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        mBuilder.setContentIntent(MainPendingIntent);
-        NotificationManager mNotificationmanager =
-                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-        mNotificationmanager.notify(0, mBuilder.build());
     }
 
     @Override
@@ -97,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         view = (TextView) findViewById(R.id.textview1);
-        this.registerReceiver(BatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        //this.registerReceiver(BatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
