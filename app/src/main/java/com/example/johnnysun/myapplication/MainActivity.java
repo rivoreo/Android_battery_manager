@@ -77,8 +77,12 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(BatteryEvent event) {
         int level = event.mBundle.getInt("Level", 0);
         int voltage = event.mBundle.getInt("Voltage", 0);
+        double f_temperature = event.mBundle.getDouble("f_Temperature", 0);
+        String plug = event.mBundle.getString("Plug");
         view.setText("Level: "+level+"\n"+
-                            "Voltage: "+voltage+"\n");
+                            "Voltage: "+voltage+"\n"+
+                            "Plug Status: "+plug+"\n"+
+                            "Temperature: "+f_temperature+"\n");
     }
 
     @Override

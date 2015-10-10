@@ -45,6 +45,8 @@ public class LocalService extends Service{
     public void onEvent(BatteryEvent event) {
         int level = event.mBundle.getInt("Level", 0);
         int voltage = event.mBundle.getInt("Voltage", 0);
+        double f_temperature = event.mBundle.getDouble("f_Temperature", 0);
+        String plug = event.mBundle.getString("Plug");
 
         PendingIntent mIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
@@ -52,7 +54,10 @@ public class LocalService extends Service{
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentTitle("Battery Info")
-                        .setContentText(level+"% "+ voltage+"mV ")
+                        .setContentText(level + "% " +
+                                voltage + "mV " +
+                                f_temperature + "C" +
+                                " Changer"+plug+"\n")
                         .setWhen(System.currentTimeMillis())
                         .setContentIntent(mIntent);
 
