@@ -68,22 +68,20 @@ public class LocalService extends Service{
 
     @Override
     public void onCreate() {
+        EventBus.getDefault().register(this);
         this.registerReceiver(BatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        if(!EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().register(this);
         return START_NOT_STICKY;
     }
 
     @Override
     public void onDestroy() {
         // Cancel the persistent notification.
-        if(EventBus.getDefault().isRegistered(this))
-            EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
         mNotificationmanager.cancelAll();
 
         // Tell the user we stopped.

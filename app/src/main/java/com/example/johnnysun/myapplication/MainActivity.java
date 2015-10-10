@@ -62,8 +62,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        Intent ServiceIndent = new Intent(MainActivity.this, LocalService.class);
-        startService(ServiceIndent);
         EventBus.getDefault().register(this);
     }
 
@@ -88,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Intent ServiceIndent = new Intent(MainActivity.this, LocalService.class);
+        startService(ServiceIndent);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
