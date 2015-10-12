@@ -57,7 +57,7 @@ public class LocalService extends Service{
                         .setContentText(level + "% " +
                                 voltage + "mV " +
                                 f_temperature + "C" +
-                                " Changer"+plug+"\n")
+                                " Changer "+plug+"\n")
                         .setWhen(System.currentTimeMillis())
                         .setContentIntent(mIntent);
 

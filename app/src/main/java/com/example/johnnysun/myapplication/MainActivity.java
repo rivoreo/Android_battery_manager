@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
     static private TextView view;
     private NotificationCompat.Builder mBuilder;
+    String plug;
     //private MyReceiver BatteryReceiver = new MyReceiver();
 
 
@@ -77,10 +78,10 @@ public class MainActivity extends AppCompatActivity {
         int voltage = event.mBundle.getInt("Voltage", 0);
         double f_temperature = event.mBundle.getDouble("f_Temperature", 0);
         String plug = event.mBundle.getString("Plug");
-        view.setText("Level: "+level+"\n"+
-                            "Voltage: "+voltage+"\n"+
-                            "Plug Status: "+plug+"\n"+
-                            "Temperature: "+f_temperature+"\n");
+        view.setText("Level: " + level + "\n" +
+                "Voltage: " + voltage + "\n" +
+                "Plug Status: " + plug + "\n" +
+                "Temperature: " + f_temperature + "\n");
     }
 
     @Override
@@ -93,7 +94,21 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         view = (TextView) findViewById(R.id.textview1);
-        //this.registerReceiver(BatteryReceiver, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        Intent mIntent = this.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+
+        int level = mIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+        int voltage = mIntent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+        int  temperature = mIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+        double f_temperature = temperature/10.0;
+        if (mIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) == 0)
+            plug = "Not plug";
+        else
+            plug = "Plugged";
+
+        view.setText("Level: "+level+"\n"+
+                "Voltage: "+voltage+"\n"+
+                "Plug Status: "+plug+"\n"+
+                "Temperature: "+f_temperature+"\n");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
