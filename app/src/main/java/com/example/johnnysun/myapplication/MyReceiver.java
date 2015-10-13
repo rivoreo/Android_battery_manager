@@ -1,14 +1,13 @@
 package com.example.johnnysun.myapplication;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 import android.os.Bundle;
-import android.os.Debug;
-import android.support.v4.app.NotificationCompat;
+import android.widget.Toast;
+
+import com.example.johnnysun.myapplication.Event.BatteryEvent;
 
 import de.greenrobot.event.EventBus;
 
@@ -38,12 +37,22 @@ public class MyReceiver extends BroadcastReceiver {
                     "Temperature: " + f_temperature + "\n" +
                     "Plugged: " + plug + "\n");*/
 
+        //Make String for Toast use.
+        String toast_string = "Battery: " + level + "%";
+        //Taying Send Toast when battery status changed.
+        Toast.makeText(context.getApplicationContext(), toast_string, Toast.LENGTH_LONG).show();
+
+        //Use EventBus to broadcast event.
+        //Package data to a bundle.
         Bundle bundle = new Bundle();
         bundle.putInt("Level", level);
         bundle.putInt("Voltage", voltage);
         bundle.putDouble("f_Temperature", f_temperature);
         bundle.putString("Plug", plug);
+
+        //Use EventBus to broadcast event.
         BatteryEvent mEvent = new BatteryEvent(bundle);
+        //Send event
         EventBus.getDefault().post(mEvent);
     }
 }

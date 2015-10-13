@@ -1,8 +1,9 @@
-package com.example.johnnysun.myapplication;
+package com.example.johnnysun.myapplication.Event;
 
 import android.os.Bundle;
 
 /**
+ * Battery Event class
  * Created by JohnnySun on 2015/10/8.
  */
 public class BatteryEvent {
