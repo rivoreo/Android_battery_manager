@@ -3,8 +3,10 @@ package com.example.johnnysun.myapplication;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.widget.Toast;
 
 import com.example.johnnysun.myapplication.Event.BatteryEvent;
@@ -16,8 +18,6 @@ import de.greenrobot.event.EventBus;
  * Created by JohnnySun on 2015/10/8.
  */
 public class MyReceiver extends BroadcastReceiver {
-
-    //private  NotificationCompat.Builder mBuilder;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -32,15 +32,12 @@ public class MyReceiver extends BroadcastReceiver {
         else
             plug = "Plugged";
 
-           /* view.setText("Level: " + level + "\n" +
-                    "Voltage: " + voltage + "\n" +
-                    "Temperature: " + f_temperature + "\n" +
-                    "Plugged: " + plug + "\n");*/
-
-        //Make String for Toast use.
-        String toast_string = "Battery: " + level + "%";
-        //Taying Send Toast when battery status changed.
-        Toast.makeText(context.getApplicationContext(), toast_string, Toast.LENGTH_LONG).show();
+        if(MainActivity.test ) {
+            //Make String for Toast use.
+            String toast_string = "Battery: " + level + "%";
+            //Taying Send Toast when battery status changed.
+            Toast.makeText(context.getApplicationContext(), toast_string, Toast.LENGTH_LONG).show();
+        }
 
         //Use EventBus to broadcast event.
         //Package data to a bundle.

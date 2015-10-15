@@ -3,8 +3,10 @@ package com.example.johnnysun.myapplication;
 import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     static private TextView view;
     private NotificationCompat.Builder mBuilder;
+    static public boolean test;
     String plug;
 
     void update_battery_view() {
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        test = settings.getBoolean("battery_level_toast_switch", false);
         Intent ServiceIndent = new Intent(MainActivity.this, LocalService.class);
         startService(ServiceIndent);
         setContentView(R.layout.activity_main);
