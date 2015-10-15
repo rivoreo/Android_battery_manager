@@ -12,7 +12,6 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.johnnysun.myapplication.Event.BatteryEvent;
-
 import de.greenrobot.event.EventBus;
 
 /**
@@ -23,9 +22,11 @@ public class LocalService extends Service{
 
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
+    private  static  final int ONGOING_NOTIFICATION_ID = 1;
+
     private MyReceiver BatteryReceiver = new MyReceiver();
-    private NotificationManager mNotificationmanager;
     private NotificationCompat.Builder mBuilder;
+    private NotificationManager mNotificationmanager;
 
     /**
      * Class for clients to access.  Because we know this service always
@@ -50,6 +51,7 @@ public class LocalService extends Service{
 
         PendingIntent mIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
+
         mBuilder =
                 new NotificationCompat.Builder(this)
                         .setSmallIcon(R.mipmap.ic_launcher)
@@ -57,13 +59,16 @@ public class LocalService extends Service{
                         .setContentText(level + "% " +
                                 voltage + "mV " +
                                 f_temperature + "C" +
-                                " Changer "+plug+"\n")
-                        .setWhen(System.currentTimeMillis())
+                                " Changer " + plug)
+                        .setWhen(0)
+                        // .setVisibility(NotificationCompat.VISIBILITY_SECRET)
                         .setContentIntent(mIntent);
+        mBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
 
-        mNotificationmanager =
+        /*mNotificationmanager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-        mNotificationmanager.notify(0, mBuilder.build());
+        mNotificationmanager.notify(0, mBuilder.build());*/
+        startForeground(ONGOING_NOTIFICATION_ID, mBuilder.build());
     }
 
     @Override
@@ -82,7 +87,7 @@ public class LocalService extends Service{
     public void onDestroy() {
         // Cancel the persistent notification.
         EventBus.getDefault().unregister(this);
-        mNotificationmanager.cancelAll();
+        stopForeground(true);
 
         // Tell the user we stopped.
         Toast.makeText(this, "local_service_stopped", Toast.LENGTH_SHORT).show();
