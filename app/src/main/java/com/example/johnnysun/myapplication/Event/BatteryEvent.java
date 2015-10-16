@@ -1,4 +1,4 @@
-package com.example.johnnysun.myapplication.Event;
+package so.libdll.batterymanager.Event;
 
 import android.os.Bundle;
 

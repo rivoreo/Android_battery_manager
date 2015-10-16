@@ -1,4 +1,4 @@
-package com.example.johnnysun.myapplication;
+package so.libdll.batterymanager;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -13,7 +13,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.johnnysun.myapplication.Event.BatteryEvent;
+import so.libdll.batterymanager.Event.BatteryEvent;
 import de.greenrobot.event.EventBus;
 
 /**

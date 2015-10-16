@@ -1,4 +1,4 @@
-package com.example.johnnysun.myapplication;
+package so.libdll.batterymanager;
 
 import android.content.BroadcastReceiver;
 import android.content.Intent;
@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 
-import com.example.johnnysun.myapplication.Event.BatteryEvent;
+import so.libdll.batterymanager.Event.BatteryEvent;
 
 import de.greenrobot.event.EventBus;
 

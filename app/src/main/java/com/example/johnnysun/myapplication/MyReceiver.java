@@ -1,4 +1,4 @@
-package com.example.johnnysun.myapplication;
+package so.libdll.batterymanager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -10,7 +10,7 @@ import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import com.example.johnnysun.myapplication.Event.BatteryEvent;
+import so.libdll.batterymanager.Event.BatteryEvent;
 
 import de.greenrobot.event.EventBus;
 

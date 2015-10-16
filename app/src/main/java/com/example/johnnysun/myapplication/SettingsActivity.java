@@ -1,4 +1,4 @@
-package com.example.johnnysun.myapplication;
+package so.libdll.batterymanager;
 
 
 import android.annotation.TargetApi;

@@ -1,4 +1,4 @@
-package com.example.johnnysun.myapplication;
+package so.libdll.batterymanager;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
