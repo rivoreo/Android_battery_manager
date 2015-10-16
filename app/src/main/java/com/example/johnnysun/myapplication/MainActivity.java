@@ -28,26 +28,28 @@ public class MainActivity extends AppCompatActivity {
 
     static private TextView view;
     private NotificationCompat.Builder mBuilder;
-    static public boolean test;
+
     String plug;
 
     void update_battery_view() {
         view = (TextView) findViewById(R.id.textview1);
         Intent mIntent = this.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
+        if (mIntent != null) {
+            int level = mIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
+            int voltage = mIntent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
+            int  temperature = mIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
+            double f_temperature = temperature/10.0;
+            if (mIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) == 0)
+                plug = "Not plug";
+            else
+                plug = "Plugged";
 
-        int level = mIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
-        int voltage = mIntent.getIntExtra(BatteryManager.EXTRA_VOLTAGE, 0);
-        int  temperature = mIntent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, 0);
-        double f_temperature = temperature/10.0;
-        if (mIntent.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0) == 0)
-            plug = "Not plug";
-        else
-            plug = "Plugged";
+            view.setText("Level: "+level+"\n"+
+                    "Voltage: "+voltage+"\n"+
+                    "Plug Status: "+plug+"\n"+
+                    "Temperature: "+f_temperature+"\n");
 
-        view.setText("Level: "+level+"\n"+
-                "Voltage: "+voltage+"\n"+
-                "Plug Status: "+plug+"\n"+
-                "Temperature: "+f_temperature+"\n");
+        }
     }
 
     @Override
@@ -77,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        test = settings.getBoolean("battery_level_toast_switch", false);
+
         Intent ServiceIndent = new Intent(MainActivity.this, LocalService.class);
         startService(ServiceIndent);
         setContentView(R.layout.activity_main);

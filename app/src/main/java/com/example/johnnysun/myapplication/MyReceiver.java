@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.BatteryManager;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.widget.Toast;
 
 import com.example.johnnysun.myapplication.Event.BatteryEvent;
@@ -32,7 +33,9 @@ public class MyReceiver extends BroadcastReceiver {
         else
             plug = "Plugged";
 
-        if(MainActivity.test ) {
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        boolean battery_level_switcher = settings.getBoolean("battery_level_toast_switch", false);
+        if(battery_level_switcher ) {
             //Make String for Toast use.
             String toast_string = "Battery: " + level + "%";
             //Taying Send Toast when battery status changed.

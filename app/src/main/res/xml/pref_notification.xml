@@ -1,5 +1,15 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
+    <ListPreference
+        android:key="priority_list"
+        android:title="@string/priority_list_messages"
+        android:defaultValue="-2"
+        android:entries="@array/priority_list_titles"
+        android:entryValues="@array/priority_list_values"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null" />
+
     <!-- A 'parent' preference, which enables/disables child preferences (below)
          when checked/unchecked. -->
     <SwitchPreference

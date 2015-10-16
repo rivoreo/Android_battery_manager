@@ -5,8 +5,10 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Binder;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
@@ -49,6 +51,10 @@ public class LocalService extends Service{
         double f_temperature = event.mBundle.getDouble("f_Temperature", 0);
         String plug = event.mBundle.getString("Plug");
 
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        String str_notification_list = settings.getString("priority_list", "-2");
+        int notification_priority = Integer.parseInt(str_notification_list);
+
         PendingIntent mIntent = PendingIntent.getActivity(this, 0,
                 new Intent(this, MainActivity.class), PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -63,7 +69,7 @@ public class LocalService extends Service{
                         .setWhen(0)
                         // .setVisibility(NotificationCompat.VISIBILITY_SECRET)
                         .setContentIntent(mIntent);
-        mBuilder.setPriority(NotificationCompat.PRIORITY_MIN);
+        mBuilder.setPriority(notification_priority);
 
         /*mNotificationmanager =
                 (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
